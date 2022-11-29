@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.StudyPlanner" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-
+        <item name="colorPrimary">@color/green</item>
     </style>
 
     <style name="AppTheme.Picker" parent="Theme.AppCompat.Light.NoActionBar" >
