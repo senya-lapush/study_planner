@@ -1,25 +1,28 @@
 package com.example.studyplanner.screens.subjectsandtasks
 
 import android.app.AlertDialog
-import androidx.lifecycle.ViewModelProvider
+import android.content.Context
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.os.bundleOf
-import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studyplanner.APP
 import com.example.studyplanner.R
-import com.example.studyplanner.adapter.SubjectAdapter
 import com.example.studyplanner.adapter.SubjectWithTasksAdapter
 import com.example.studyplanner.databinding.FragmentSubjectAndTasksBinding
-import com.example.studyplanner.db.views.TaskView
 import com.example.studyplanner.models.SubjectModel
 import com.example.studyplanner.models.TaskModel
-import com.example.studyplanner.models.relationships.SubjectWithTasksModel
+
 
 class SubjectAndTasksFragment : Fragment() {
 
@@ -72,16 +75,25 @@ class SubjectAndTasksFragment : Fragment() {
 
         binding.btnEditSubjectName.setOnClickListener {
             binding.tvSubjectAndTasksHeader.isEnabled = true
+            binding.tvSubjectAndTasksHeader.requestFocus()
+            binding.tvSubjectAndTasksHeader.setSelection(binding.tvSubjectAndTasksHeader.length())
+            val imm = activity?.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(binding.tvSubjectAndTasksHeader, InputMethodManager.SHOW_IMPLICIT)
         }
 
-        binding.tvSubjectAndTasksHeader.doAfterTextChanged {
-            binding.tvSubjectAndTasksHeader.isEnabled = false
-            val subjectName = binding.tvSubjectAndTasksHeader.text.toString()
-            if (subjectName.isNotBlank()) {
-                currentSubject.name = subjectName
-                viewModel.updateSubject(currentSubject) {}
+        binding.tvSubjectAndTasksHeader.setOnEditorActionListener { textView, actionId, keyEvent ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                binding.tvSubjectAndTasksHeader.isEnabled = false
+                val subjectName = binding.tvSubjectAndTasksHeader.text.toString()
+                if (subjectName.isNotBlank()) {
+                    currentSubject.name = subjectName
+                    viewModel.updateSubject(currentSubject) {}
+                } else {
+                    Toast.makeText(context, "Field is empty!", Toast.LENGTH_SHORT).show()
+                }
+                true
             } else {
-                Toast.makeText(context, "Field is empty!", Toast.LENGTH_SHORT).show()
+                false
             }
         }
 
