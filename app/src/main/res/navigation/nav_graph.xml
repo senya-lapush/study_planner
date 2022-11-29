@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/startFragment">
+
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="com.example.studyplanner.screens.start.StartFragment"
+        android:label="fragment_start"
+        tools:layout="@layout/fragment_start" >
+        <action
+            android:id="@+id/action_startFragment_to_subjectsFragment"
+            app:destination="@id/subjectsFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_addTaskFragment"
+            app:destination="@id/addTaskFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_editTaskFragment"
+            app:destination="@id/editTaskFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/subjectsFragment"
+        android:name="com.example.studyplanner.screens.subjects.SubjectsFragment"
+        android:label="fragment_subjects"
+        tools:layout="@layout/fragment_subjects" >
+        <action
+            android:id="@+id/action_subjectsFragment_to_startFragment"
+            app:destination="@id/startFragment" />
+        <action
+            android:id="@+id/action_subjectsFragment_to_subjectAndTasksFragment"
+            app:destination="@id/subjectAndTasksFragment" />
+        <action
+            android:id="@+id/action_subjectsFragment_to_addSubjectFragment"
+            app:destination="@id/addSubjectFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addTaskFragment"
+        android:name="com.example.studyplanner.screens.addtask.AddTaskFragment"
+        android:label="fragment_add_task"
+        tools:layout="@layout/fragment_add_task" >
+        <action
+            android:id="@+id/action_addTaskFragment_to_startFragment"
+            app:destination="@id/startFragment" />
+        <action
+            android:id="@+id/action_addTaskFragment_to_subjectAndTasksFragment"
+            app:destination="@id/subjectAndTasksFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editTaskFragment"
+        android:name="com.example.studyplanner.screens.edittask.EditTaskFragment"
+        android:label="fragment_edit_task"
+        tools:layout="@layout/fragment_edit_task" >
+        <action
+            android:id="@+id/action_editTaskFragment_to_startFragment"
+            app:destination="@id/startFragment" />
+        <action
+            android:id="@+id/action_editTaskFragment_to_subjectAndTasksFragment"
+            app:destination="@id/subjectAndTasksFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/subjectAndTasksFragment"
+        android:name="com.example.studyplanner.screens.subjectsandtasks.SubjectAndTasksFragment"
+        android:label="fragment_subject_and_tasks"
+        tools:layout="@layout/fragment_subject_and_tasks" >
+        <action
+            android:id="@+id/action_subjectAndTasksFragment_to_subjectsFragment"
+            app:destination="@id/subjectsFragment" />
+        <action
+            android:id="@+id/action_subjectAndTasksFragment_to_editTaskFragment"
+            app:destination="@id/editTaskFragment" />
+        <action
+            android:id="@+id/action_subjectAndTasksFragment_to_addTaskFragment"
+            app:destination="@id/addTaskFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addSubjectFragment"
+        android:name="com.example.studyplanner.screens.addsubject.AddSubjectFragment"
+        android:label="fragment_add_subject"
+        tools:layout="@layout/fragment_add_subject" >
+        <action
+            android:id="@+id/action_addSubjectFragment_to_subjectsFragment"
+            app:destination="@id/subjectsFragment" />
+    </fragment>
+</navigation>

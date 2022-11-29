@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Study Planner</string>
+    <string name="deadline_soon">Deadline Soon</string>
+    <string name="to_do">To Do</string>
+</resources>
