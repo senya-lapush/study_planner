@@ -93,6 +93,11 @@ class EditTaskFragment : Fragment() {
                 .setCancelable(false)
                 .setPositiveButton("Yes") { dialog, id ->
                     viewModel.deleteTask(currentTask) {}
+                    if (subjectChosen) {
+                        APP.navController.navigate(R.id.action_editTaskFragment_to_subjectAndTasksFragment)
+                    } else {
+                        APP.navController.navigate(R.id.action_editTaskFragment_to_startFragment)
+                    }
                 }
                 .setNegativeButton("No") {dialog, id ->
                     dialog.dismiss()

@@ -24,7 +24,8 @@ class SubjectAdapter : RecyclerView.Adapter<SubjectAdapter.SubjectViewHolder>() 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: SubjectViewHolder, position: Int) {
         holder.itemView.findViewById<TextView>(R.id.tv_subject_item_subjects).text = listSubjects[position].subject.name
-        holder.itemView.findViewById<TextView>(R.id.tv_task_count_item_subjects).text = "${listSubjects[position].tasks.size} tasks"
+        holder.itemView.findViewById<TextView>(R.id.tv_task_count_item_subjects).text =
+            holder.itemView.context.resources.getQuantityString(R.plurals.number_of_tasks, listSubjects[position].tasks.size, listSubjects[position].tasks.size)
     }
 
     override fun getItemCount(): Int {

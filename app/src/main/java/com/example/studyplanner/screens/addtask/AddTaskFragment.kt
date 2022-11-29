@@ -2,6 +2,7 @@ package com.example.studyplanner.screens.addtask
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,10 +10,12 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import com.example.studyplanner.APP
 import com.example.studyplanner.R
 import com.example.studyplanner.adapter.SpinnerSubjectAdapter
 import com.example.studyplanner.databinding.FragmentAddTaskBinding
+import com.example.studyplanner.models.SubjectModel
 import com.example.studyplanner.models.TaskModel
 import com.example.studyplanner.util.getDate
 import java.util.*
@@ -22,14 +25,14 @@ class AddTaskFragment : Fragment() {
     private lateinit var binding: FragmentAddTaskBinding
     private lateinit var spinnerAdapter: SpinnerSubjectAdapter
 
-    private var subjectIdGot: Int? = null
+    private var subjectGot: SubjectModel? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAddTaskBinding.inflate(layoutInflater, container, false)
-        subjectIdGot = arguments?.getInt("subject_id")
+        subjectGot = arguments?.getParcelable<SubjectModel>("subject") as SubjectModel
         return binding.root
     }
 
@@ -45,11 +48,10 @@ class AddTaskFragment : Fragment() {
 
         viewModel.getSubjects().observe(viewLifecycleOwner) { listSubjects ->
             spinnerAdapter.setList(listSubjects)
-        }
-
-        if (subjectIdGot != null) {
-            binding.spSubjectAddtask.setSelection(spinnerAdapter.getItemPosition(subjectIdGot!!))
-            binding.spSubjectAddtask.isEnabled = false
+            if (subjectGot != null) {
+                binding.spSubjectAddtask.setSelection(spinnerAdapter.getItemPosition(subjectGot!!.id))
+                binding.spSubjectAddtask.isEnabled = false
+            }
         }
 
         binding.btnAddTask.setOnClickListener {
@@ -68,8 +70,10 @@ class AddTaskFragment : Fragment() {
                             deadline = deadline
                         )
                     ) {}
-                    if (subjectIdGot != null) {
-                        APP.navController.navigate(R.id.action_addTaskFragment_to_subjectAndTasksFragment)
+                    if (subjectGot != null) {
+                        val bundle = bundleOf()
+                        bundle.putParcelable("subject", subjectGot)
+                        APP.navController.navigate(R.id.action_addTaskFragment_to_subjectAndTasksFragment, bundle)
                     } else {
                         APP.navController.navigate(R.id.action_addTaskFragment_to_startFragment)
                     }

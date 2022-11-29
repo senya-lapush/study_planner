@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -69,8 +70,8 @@ class SubjectAndTasksFragment : Fragment() {
 
         binding.btnGoToAddTaskFromSubject.setOnClickListener {
             val bundle = bundleOf()
-            bundle.putInt("subject_id", currentSubject.id)
-            APP.navController.navigate(R.id.action_subjectAndTasksFragment_to_addTaskFragment)
+            bundle.putParcelable("subject", currentSubject)
+            APP.navController.navigate(R.id.action_subjectAndTasksFragment_to_addTaskFragment, bundle)
         }
 
         binding.btnEditSubjectName.setOnClickListener {

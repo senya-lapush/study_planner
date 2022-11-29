@@ -2,4 +2,13 @@
     <string name="app_name">Study Planner</string>
     <string name="deadline_soon">Deadline Soon</string>
     <string name="to_do">To Do</string>
+
+    <plurals name="number_of_tasks">
+        <item quantity="zero">%d tasks</item>
+        <item quantity="one">%d task</item>
+        <item quantity="two">%d tasks</item>
+        <item quantity="few">%d tasks</item>
+        <item quantity="many">%d tasks</item>
+        <item quantity="other">%d tasks</item>
+    </plurals>
 </resources>
