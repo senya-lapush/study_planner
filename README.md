@@ -1,4 +1,4 @@
-# Study Planner
+# Study Planner [Under Development]
 App for planning your homework assignments.
 
 ## Table of Contents
